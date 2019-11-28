@@ -1,0 +1,78 @@
+# Summarize-Iterator
+Iterator 迭代器
+
+1、Iterator 是什么？
+    ==>它是一种设计模式；是一个对象。
+2、Iterator的作用?
+    ==>遍历并选择集合容器中的对象（比如：List、Set、Map等等）
+3、Iterator是轻量级的对象？
+   ==>创建开销比较小。（对比于：处理哈希碰撞问题上，链地址法的链表转红黑树的开销较大）
+4、Collection集合如何获取元素？（三步）
+   A、判断该集合容器中是否有元素
+   B、如果有元素，则取，否则继续判断（循环）
+   C、直至将容器中的元素取空。——迭代
+5、Iterator的接口定义：
+      public  interface  Iterator <E> {
+            boolean hasNext(); //用来判断是否还有下一个元素
+            E    next();  //获取出下一个元素（返回的E类型，即是一个对象）
+            void  remove();  //将迭代器的一个元素移除
+    }
+
+ 注意：Iterator只有上面接口中的三个方法，没有其他的方法了（如：add()..）
+            所以对于迭代器中的元素只能删，不能加。
+            而且这里的移除只是针对于迭代器中的元素，而非Iterator所操作的集合
+            的元素，即就是集合对象不能动。
+6、迭代方法：
+iterator()方法——是所操作的集合类的方法
+             ——是集合类的引用 . iterator()—>返回的是一个Iterator对象
+          for(Iterator  it = list . iterator(); it.hasNext();  ){
+                  //假如要输出的是String类型
+               String s = (String) it.next();//一条一条的将迭代器对象中的元素读出来
+          }
+
+Iterator  it = 集合引用 . iterator();
+             while(it.haaNext()){
+                 Object o=it.next();
+             }
+             
+7、使用：
+      注意： Object next() 返回的是一个Object对象
+            必须强制转换为需要的类型。
+            
+【ArrayList遍历】：
+List<String> list=new ArrayList<String>();
+list.add("AAA");
+list.add("BBB");
+Iterator it=list.iterator();
+while(it.hasNext()){
+    String s=(String)it.next(); //it.next()返回的是Object对象
+    System.out.println(s);
+}
+
+
+【LinkedList遍历】：
+List<String> link=new LinkedList<String>();
+link.add("AAA");
+link.add("BBB");
+Iterator it=link.iterator();
+while(it.hasNext()){
+    String s=(String)it.next(); //it.next()返回的是Object对象
+    System.out.println(s);
+}
+
+
+【HashSet遍历】：
+Set<String> set=new HashSet<String>();
+set.add("AAA");
+set.add("BBB");
+Iterator it=set.iterator();
+while(it.hasNext()){
+    String s=(String)it.next(); //it.next()返回的是Object对象
+    System.out.println(s);
+}
+
+
+8、要点：
+      A、Iterator只可单向移动，从第一个元素开始遍历。
+      B、在使用Iterator时，不允许改变它所访问的集合容器的大小，
+            否则将引发异常。
